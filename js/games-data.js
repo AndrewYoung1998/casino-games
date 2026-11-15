@@ -82,7 +82,7 @@ const GAMES=[
  strat:`<ul><li><b>Play any hand of Q-6-4 or better. Fold anything worse.</b> That's the entire optimal strategy.</li><li>Examples: Q-7-2 → play. Q-6-3 → fold. K-2-3 → play. Any pair → play.</li><li>Pair Plus doesn't depend on the dealer, but compare paytables and prefer the one that pays 4:1 on a flush.</li></ul>`,
  practice:['5-stage Three Card Poker trainer — <b>live now</b>','Three-card rankings and showdown drills','Q-6-4 play/fold reflex drill and payout settling','Full table with Ante, Play and Pair Plus']},
 
-{id:'paigow',stages:6,name:'Pai Gow Poker',cat:'poker',c1:'#f97316',c2:'#dc2626',status:'soon',edge:'~2.7%',skill:3,diff:'Medium',
+{id:'paigow',stages:6,name:'Pai Gow Poker',cat:'poker',c1:'#f97316',c2:'#dc2626',status:'live',href:'games/paigow/index.html',edge:'~2.7%',skill:3,diff:'Medium',
  tag:'Split seven cards into two hands. Lots of pushes, slow and social.',
  icon:()=>fan(['A♠','A♦','K♣','K♥','JK','7♠','2♦'],10),
  overview:`<div class="kpis"><div class="kpi"><small>House edge</small><b>~2.7% vs the dealer</b></div><div class="kpi"><small>Deck</small><b>52 cards + 1 Joker</b></div><div class="kpi"><small>Pace</small><b>About 4 in 10 hands push</b></div></div>
@@ -92,7 +92,7 @@ const GAMES=[
  <h4>Two-card low hand</h4><p>Only pairs and high cards count. The best low hand is a pair of Aces.</p>`,
  pay:`<table><tr><th>Result</th><th>Pays</th></tr><tr><td>Win both hands</td><td class="n">1 : 1 minus 5% commission</td></tr><tr><td>Win one hand</td><td class="n">Push</td></tr><tr><td>Lose both / copies</td><td class="n">Lose</td></tr></table><p>Five-card hands use standard poker rankings, plus <b>five Aces</b> (four Aces and the Joker) as the highest hand. Side bets for big hands pay from their own paytable.</p>`,
  strat:`<ul><li>When unsure, ask the dealer to set your hand <b>the House Way</b>. It's close to optimal.</li><li>With one pair, keep it in the high hand and put the next two highest cards in the low hand.</li><li>With two pair, usually split them (higher pair high, lower pair low), especially with a high pair.</li><li>With three pair, put the highest pair in the low hand.</li><li>When offered, <b>take the bank</b> occasionally. As banker, ties go to you.</li></ul>`,
- practice:['Hand-setting trainer graded against House Way','"Is this a foul?" quick check','Full table with banking option']}
+ practice:['6-stage Pai Gow Poker trainer — <b>live now</b>','Joker hands and "legal or foul?" drills','House Way hand-setting trainer for every hand type','Full table against the banker’s House Way']}
 ];
 const CATS=[['all','All games'],['cards','Card games'],['poker','Poker'],['table','Table'],['dice','Dice'],['machines','Machines']];
 const ODDS=[

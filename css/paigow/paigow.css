@@ -1,0 +1,19 @@
+/* Pai Gow Poker — hand-setting picker and set-hand displays. Loads after css/shared/base.css */
+.pgrow{display:flex;justify-content:center;flex-wrap:wrap;gap:2px}
+.pickcard{position:relative;background:none;border:0;padding:0 0 16px;cursor:pointer;font:inherit;color:inherit}
+.pickcard:disabled{cursor:default}
+.pickcard .card{margin:2px;width:48px;height:68px;transition:transform .15s,box-shadow .15s}
+.pickcard .card .mid{font-size:22px}.pickcard .card .br{display:none}
+.pickcard.low .card{transform:translateY(-8px);box-shadow:0 0 0 3px #f97316,0 10px 24px rgba(249,115,22,.35)}
+.pickcard .lowtag{position:absolute;left:0;right:0;bottom:0;font-size:.58rem;font-weight:800;letter-spacing:.12em;color:#fdba74;opacity:0}
+.pickcard.low .lowtag{opacity:1}
+.pickcard.best .card{outline:3px dashed var(--good);outline-offset:3px}
+@media(min-width:520px){.pickcard .card{width:58px;height:82px}.pickcard .card .mid{font-size:28px}}
+.pgstatus{text-align:center;min-height:1.4em;margin:8px 0;font-size:.9rem;color:var(--muted)}
+.pgstatus .no{color:var(--bad)}
+.pgset .lockin{display:block;margin:0 auto}
+.pgpair{margin:8px auto;max-width:520px}
+.pghand{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
+.pghand .mini{font-size:.68rem;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.felt.pg{background:radial-gradient(600px 260px at 50% 0,rgba(249,115,22,.14),transparent 70%),var(--panel)}
+.setbox{min-height:120px}
