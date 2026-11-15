@@ -19,10 +19,26 @@ button.lc{cursor:pointer}button.lc:hover{filter:brightness(1.25)}
 .flash .nb{min-width:56px;height:56px;font-size:1.5rem}
 .felt.rou{background:radial-gradient(600px 260px at 50% 0,rgba(225,29,72,.14),transparent 70%),var(--panel)}
 .rou-top{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:6px 0}
-.wheelbox{position:relative;width:min(220px,62vw)}
-.rwheel{width:100%;display:block;filter:drop-shadow(0 12px 24px rgba(0,0,0,.6))}
-.ball{transition:opacity .3s;filter:drop-shadow(0 0 3px #fff)}
-.pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:14px solid #fde68a;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
 .hist{max-width:150px;text-align:center}
 .betlist{display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.2);border:1px solid var(--line);font-size:.95rem}
 .settle{max-width:420px;margin:8px auto 0;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted);text-align:left}
+
+/* ---------- 3D wheel ---------- */
+.w3d{position:relative;width:min(360px,80vw);aspect-ratio:1/.62;perspective:900px;margin:4px auto 22px}
+.w3d-shadow{position:absolute;left:6%;right:6%;bottom:2%;height:22%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);filter:blur(6px)}
+.w3d-tilt{position:absolute;left:0;top:50%;width:100%;aspect-ratio:1;transform:translateY(-50%) rotateX(56deg);transform-style:preserve-3d}
+.w3d-side{position:absolute;inset:0;border-radius:50%;background:linear-gradient(#3b240f,#1a0e05);transform:translateZ(-22px);box-shadow:0 0 0 2px #2a1708}
+.w3d-bowl{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#140a03 0 58%,#6e4520 59%,#a87436 66%,#5b3716 74%,#2c180a 86%,#8a5a2b 93%,#3b230d 100%);box-shadow:inset 0 0 0 3px #d4af37,inset 0 -10px 24px rgba(0,0,0,.6),inset 0 8px 18px rgba(255,220,150,.25)}
+.w3d-rotor{position:absolute;inset:8%;width:84%;height:84%;border-radius:50%;filter:drop-shadow(0 6px 6px rgba(0,0,0,.55))}
+.w3d-light{position:absolute;inset:8%;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse at 38% 26%,rgba(255,255,255,.28),transparent 46%),radial-gradient(ellipse at 70% 85%,rgba(0,0,0,.35),transparent 55%)}
+.w3d-ball{position:absolute;border-radius:50%;opacity:0;background:radial-gradient(circle at 35% 30%,#fff 0 18%,#e5e5e5 45%,#9a9a9a 100%);box-shadow:0 2px 3px rgba(0,0,0,.6);transform:rotateX(-56deg);z-index:2}
+/* ---------- 3D layout: padded rail, raised cells, chip stacks ---------- */
+.felt.rou .layout{padding:10px;border-radius:16px;background:radial-gradient(120% 80% at 50% 0,#0b6b45,#064a30);box-shadow:inset 0 0 0 6px #4a2c12,inset 0 0 0 8px #d4af37,inset 0 10px 30px rgba(0,0,0,.45),0 18px 36px rgba(0,0,0,.5);transform:perspective(1100px) rotateX(14deg);transform-origin:50% 0;max-width:360px}
+.felt.rou .lc{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -3px 0 rgba(0,0,0,.35),0 2px 3px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08);transition:transform .12s,filter .12s}
+.felt.rou button.lc:hover{transform:translateY(-2px);filter:brightness(1.2)}
+.felt.rou button.lc:active{transform:translateY(0)}
+.lc.num.red{background:linear-gradient(#d61f45,#a5122f)}.lc.num.black{background:linear-gradient(#26262b,#0f0f12)}.lc.num.green{background:linear-gradient(#0a9a6c,#04704e)}
+.lc.out{background:linear-gradient(rgba(9,110,72,.75),rgba(4,70,45,.75))}
+.chipm{width:28px;height:28px;min-width:0;padding:0;border:0;background:radial-gradient(circle,#facc15 0 44%,#fff 45% 52%,#eab308 53%);color:#111;box-shadow:0 2px 0 #a16207,0 4px 0 #854d0e,0 6px 8px rgba(0,0,0,.55);font-size:.6rem;animation:none;z-index:2}
+.chipm::before{content:"";position:absolute;inset:2px;border-radius:50%;border:2px dashed rgba(255,255,255,.85)}
+.felt.rou{padding-bottom:48px}

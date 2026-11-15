@@ -23,7 +23,6 @@ function rouTable(el,stage){
   render();
  }
  function render(){
-  const deg=$('.rot',el)?.dataset.deg;
   el.innerHTML=`<div class="felt rou"><div class="shoebar"><div>${american?'American · 0 & 00':'European · single 0'}<br>Chip $${chip}</div><div style="text-align:right">Bankroll<br><b style="color:var(--ink);font-size:1.15rem">$${S.bank}</b></div></div>
    <div class="rou-top">${wheelSVG(american)}<div class="hist"><div class="lbl">Last spins</div><div>${S.hist.map(numBadge).join('')||'<span class="small">—</span>'}</div></div></div>
    <div class="msg">${S.msg}</div><div class="fbline">${S.fb}</div>
@@ -31,7 +30,7 @@ function rouTable(el,stage){
    ${layoutHTML({american,chips:S.phase==='settle'?S.lastBets:S.bets,clickable:true,hl:S.win!=null&&S.phase!=='spinning'?[String(S.win)]:[]})}
   </div>
   <div class="stats"><div class="stat"><b>${S.n}</b>spins settled</div><div class="stat"><b>${S.n?Math.round(S.ok/S.n*100)+'%':'—'}</b>payout accuracy</div><div class="stat"><b style="color:${S.bank>=500?'var(--good)':'var(--bad)'}">${S.bank>=500?'+':'−'}$${Math.abs(S.bank-500)}</b>session</div></div>`;
-  if(deg){const g=$('.rot',el);g.style.transformOrigin='100px 100px';g.style.transform=`rotate(${deg}deg)`;g.dataset.deg=deg;$('.ball',el).style.opacity=S.phase==='spinning'?0:1}else $('.ball',el).style.opacity=0;
+  applyWheel($('.wheelbox',el),american);
   el.querySelectorAll('.layout .lc').forEach(b=>b.onclick=()=>place(b.dataset.k));
   const ctl=$('.controls',el);keyHandler=null;
   if(S.phase==='bet'){ctl.innerHTML=`<div class="acts"><button class="btn ghost sm" data-a="clear" ${total()?'':'disabled'}>Clear</button><button class="btn ghost sm" data-a="rebet" ${Object.keys(S.lastBets).length&&!total()?'':'disabled'}>Rebet</button><button class="btn primary" data-a="spin">Spin${total()?` · $${total()} on the table`:''} <span class="kbd">Enter</span></button></div>`;

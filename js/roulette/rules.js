@@ -41,23 +41,54 @@ function layoutHTML({american=false,hl=[],chips={},clickable=false}={}){
  for(let c=1;c<=3;c++)h+=cell('col'+c,'2:1','out colb'+(hs.has('col'+c)?' hl':''),`grid-row:14;grid-column:${c+2}`);
  return h+'</div>';
 }
-/* ---------- wheel ---------- */
+/* ---------- 3D wheel ----------
+   A tilted (CSS perspective) wheel: wooden bowl, rotor drawn in SVG, fixed lighting overlay, and a ball
+   animated with requestAnimationFrame. The ball orbits against the rotor, drops off the track,
+   and locks into the winning pocket. ROU_STATE keeps the angle so re-renders don't jump. */
+const ROU_STATE={angle:0,ball:null};
 function wheelSVG(american){
  const order=american?US_ORDER:EU_ORDER,n=order.length;let p='';
- order.forEach((num,i)=>{const a0=(i/n)*2*Math.PI-Math.PI/2-Math.PI/n,a1=a0+2*Math.PI/n,R=96,r=60;
-  const pt=(a,rad)=>`${(100+rad*Math.cos(a)).toFixed(2)} ${(100+rad*Math.sin(a)).toFixed(2)}`;const c=colorOf(num);
-  p+=`<path d="M${pt(a0,r)} L${pt(a0,R)} A${R} ${R} 0 0 1 ${pt(a1,R)} L${pt(a1,r)} A${r} ${r} 0 0 0 ${pt(a0,r)}Z" fill="${c==='green'?'#059669':c==='red'?'#e11d48':'#111827'}" stroke="#d4af37" stroke-width=".6"/>`;
-  const am=(a0+a1)/2,x=(100+84*Math.cos(am)).toFixed(1),y=(100+84*Math.sin(am)).toFixed(1);
-  p+=`<text x="${x}" y="${y}" font-size="8" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700" transform="rotate(${(am*180/Math.PI+90).toFixed(1)} ${x} ${y})">${num}</text>`});
- return `<div class="wheelbox"><svg viewBox="0 0 200 200" class="rwheel"><g class="rot"><circle cx="100" cy="100" r="99" fill="#4a2f15" stroke="#d4af37" stroke-width="2"/>${p}<circle cx="100" cy="100" r="60" fill="#3b2410" stroke="#d4af37"/><circle cx="100" cy="100" r="34" fill="#2a1a0b"/><g stroke="#d4af37" stroke-width="5" stroke-linecap="round"><line x1="100" y1="74" x2="100" y2="126"/><line x1="74" y1="100" x2="126" y2="100"/></g><circle cx="100" cy="100" r="8" fill="#d4af37"/></g><circle class="ball" cx="100" cy="11" r="4.2" fill="#fff"/></svg><div class="pointer"></div></div>`;
+ const pt=(a,rad)=>`${(100+rad*Math.cos(a)).toFixed(2)} ${(100+rad*Math.sin(a)).toFixed(2)}`;
+ const arc=(a0,a1,r0,r1)=>`M${pt(a0,r0)} L${pt(a0,r1)} A${r1} ${r1} 0 0 1 ${pt(a1,r1)} L${pt(a1,r0)} A${r0} ${r0} 0 0 0 ${pt(a0,r0)}Z`;
+ order.forEach((num,i)=>{const a0=(i/n)*2*Math.PI-Math.PI/2-Math.PI/n,a1=a0+2*Math.PI/n,c=colorOf(num),fill=c==='green'?'#059669':c==='red'?'#d0213f':'#141418',deep=c==='green'?'#03513a':c==='red'?'#7f1024':'#060608';
+  p+=`<path d="${arc(a0,a1,80,97)}" fill="${fill}"/><path d="${arc(a0,a1,62,80)}" fill="${deep}"/>`;
+  const am=(a0+a1)/2,x=(100+88.5*Math.cos(am)).toFixed(1),y=(100+88.5*Math.sin(am)).toFixed(1);
+  p+=`<text x="${x}" y="${y}" font-size="7.2" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="800" transform="rotate(${(am*180/Math.PI+90).toFixed(1)} ${x} ${y})">${num}</text>`;
+  p+=`<line x1="${(100+62*Math.cos(a0)).toFixed(2)}" y1="${(100+62*Math.sin(a0)).toFixed(2)}" x2="${(100+97*Math.cos(a0)).toFixed(2)}" y2="${(100+97*Math.sin(a0)).toFixed(2)}" stroke="url(#fret)" stroke-width="1.1"/>`});
+ const spokes=[0,1,2,3,4,5,6,7].map(k=>{const a=k*Math.PI/4;return `<line x1="${(100+20*Math.cos(a)).toFixed(1)}" y1="${(100+20*Math.sin(a)).toFixed(1)}" x2="${(100+60*Math.cos(a)).toFixed(1)}" y2="${(100+60*Math.sin(a)).toFixed(1)}" stroke="#c9a24a" stroke-width="${k%2?0.8:1.6}" opacity=".8"/>`}).join('');
+ return `<div class="wheelbox w3d"><div class="w3d-shadow"></div><div class="w3d-tilt"><div class="w3d-side"></div><div class="w3d-bowl"></div>
+  <svg class="w3d-rotor" viewBox="0 0 200 200"><defs>
+   <radialGradient id="cone" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f3d58a"/><stop offset=".18" stop-color="#b8862f"/><stop offset=".35" stop-color="#6b3f17"/><stop offset=".95" stop-color="#3a2109"/></radialGradient>
+   <linearGradient id="fret" x1="0" x2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset="1" stop-color="#b8862f"/></linearGradient>
+   <radialGradient id="turret" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#fff7d6"/><stop offset=".5" stop-color="#d4a94a"/><stop offset="1" stop-color="#7a5418"/></radialGradient></defs>
+   <circle cx="100" cy="100" r="99" fill="#2b1a0b"/>${p}
+   <circle cx="100" cy="100" r="97" fill="none" stroke="#d4af37" stroke-width="1.6"/><circle cx="100" cy="100" r="80" fill="none" stroke="#d4af37" stroke-width=".9"/><circle cx="100" cy="100" r="62" fill="url(#cone)" stroke="#d4af37" stroke-width="1.4"/>
+   ${spokes}<circle cx="100" cy="100" r="20" fill="url(#turret)" stroke="#7a5418" stroke-width=".8"/>
+   <g stroke="url(#turret)" stroke-width="4.5" stroke-linecap="round"><line x1="100" y1="78" x2="100" y2="122"/><line x1="78" y1="100" x2="122" y2="100"/></g>
+   <circle cx="100" cy="78" r="4" fill="url(#turret)"/><circle cx="100" cy="122" r="4" fill="url(#turret)"/><circle cx="78" cy="100" r="4" fill="url(#turret)"/><circle cx="122" cy="100" r="4" fill="url(#turret)"/>
+   <circle cx="100" cy="100" r="7" fill="url(#turret)" stroke="#7a5418" stroke-width=".6"/></svg>
+  <div class="w3d-light"></div><div class="w3d-ball"></div></div></div>`;
 }
-/* Rotate the wheel so `num` lands under the pointer at the top. Resolves when the spin ends. */
-function spinTo(box,american,num,ms=4200){
- const order=american?US_ORDER:EU_ORDER,i=order.findIndex(x=>String(x)===String(num)),seg=360/order.length;
- const g=box.querySelector('.rot'),ball=box.querySelector('.ball');
- const prev=+(g.dataset.deg||0),target=prev-(prev%360)+360*5+(360-i*seg);
- ball.style.opacity=0;g.style.transition=`transform ${ms}ms cubic-bezier(.12,.6,.15,1)`;g.style.transformOrigin='100px 100px';g.style.transform=`rotate(${target}deg)`;g.dataset.deg=target;
- return new Promise(r=>setTimeout(()=>{ball.style.opacity=1;r()},ms));
+/* Geometry of the tilted plane, in px. Rotor fills 84% of the bowl. */
+function wheelGeom(box){const W=box.querySelector('.w3d-tilt').offsetWidth;return{W,c:W/2,track:W*.455,pocket:W*.42*.71,ball:W*.045}}
+function placeBall(box,angleDeg,r){const g=wheelGeom(box),b=box.querySelector('.w3d-ball'),a=angleDeg*Math.PI/180;b.style.width=b.style.height=g.ball+'px';b.style.left=(g.c+r*Math.sin(a)-g.ball/2)+'px';b.style.top=(g.c-r*Math.cos(a)-g.ball/2)+'px';b.style.opacity=1}
+/* Re-apply the stored wheel/ball position after a re-render. */
+function applyWheel(box,american){if(!box)return;box.querySelector('.w3d-rotor').style.transform=`rotate(${ROU_STATE.angle}deg)`;const b=ROU_STATE.ball;if(b&&b.american===american){const n=(american?US_ORDER:EU_ORDER).length;placeBall(box,ROU_STATE.angle+b.i*360/n,wheelGeom(box).pocket)}else box.querySelector('.w3d-ball').style.opacity=0}
+/* Spin: rotor turns clockwise, ball runs counter-clockwise, drops, and lands in `num`. Resolves when it settles. */
+function spinTo(box,american,num,ms=5600){
+ const order=american?US_ORDER:EU_ORDER,n=order.length,seg=360/n,i=order.findIndex(x=>String(x)===String(num));
+ const rotor=box.querySelector('.w3d-rotor'),g=wheelGeom(box);
+ const w0=ROU_STATE.angle,wTot=720+rnd(360),TL=ms*.74,easeW=t=>1-Math.pow(1-t,3),easeB=t=>1-Math.pow(1-t,2.2);
+ const wAt=t=>w0+wTot*easeW(Math.min(t/ms,1));
+ const lock=wAt(TL)+i*seg,bTot=1440+rnd(180),b0=lock+bTot;
+ const bAt=t=>b0-bTot*easeB(Math.min(t/TL,1));
+ const rAt=t=>{const d=TL*.62;if(t<d)return g.track;const p=Math.min((t-d)/(TL-d),1);return g.track-(g.track-g.pocket)*(p*p*(3-2*p))+Math.sin(p*Math.PI*4)*(1-p)*g.W*.018};
+ ROU_STATE.ball=null;
+ return new Promise(res=>{const t0=performance.now();
+  const frame=now=>{const t=now-t0;if(!box.isConnected)return res();const wa=wAt(t);rotor.style.transform=`rotate(${wa}deg)`;
+   if(t<TL)placeBall(box,bAt(t),rAt(t));else placeBall(box,wa+i*seg,g.pocket);
+   if(t<ms)requestAnimationFrame(frame);else{ROU_STATE.angle=wAt(ms)%360;ROU_STATE.ball={i,american};res()}};
+  requestAnimationFrame(frame)});
 }
 const spinNumber=american=>{const o=american?US_ORDER:EU_ORDER;return o[rnd(o.length)]};
 const numBadge=n=>`<span class="nb ${colorOf(n)}">${n}</span>`;
