@@ -9,7 +9,7 @@ function crapsTable(el,stage){
  function oddsTo(m){if(!can('odds'))return;const p=S.point;let want=S.bets.pass*m;if([6,8].includes(p))want=Math.ceil(want/5)*5;if([5,9].includes(p)&&want%2)want++;const d=want-S.bets.odds;if(d>S.bank)return;S.bank-=d;S.bets.odds=want;render()}
  async function roll(){
   if(S.phase!=='bet')return;S.phase='rolling';S.fb='';render();
-  const d=roll2(),t=d[0]+d[1],before={...S.bets},pt=S.point;await sleep(650);
+  const d=roll2(),t=d[0]+d[1],before={...S.bets},pt=S.point;await throwDice($('.tray',el),d[0],d[1]);if(!el.isConnected)return;
   S.dice=d;S.rolls++;
   const stake=Object.values(before).reduce((a,b)=>a+b,0);
   const r=resolveRoll(S.bets,S.point,t);
@@ -30,19 +30,19 @@ function crapsTable(el,stage){
   applyMoney();S.phase='bet';S.msg=S.point?`Point is ${S.point}.`:'Come-out roll.';
   if(S.n>=15&&S.ok/S.n>=.8){markStage(stage,S.ok/S.n,true);if(!S.passed){S.passed=true;S.msg+=' 🏆 Stage passed!'}}
   render()}
- const spot=(k,label,sub)=>`<button class="cspot ${k} ${S.bets[k]?'has':''}" data-k="${k}" ${S.phase==='bet'&&can(k)?'':'disabled'}><b>${label}</b><small>${sub}</small>${S.bets[k]?`<span class="stake">$${S.bets[k]}</span>`:''}</button>`;
+ const spot=(k,label,sub)=>`<button class="cspot ${k} ${S.bets[k]?'has':''}" data-k="${k}" ${S.phase==='bet'&&can(k)?'':'disabled'}><b>${label}</b><small>${sub}</small>${S.bets[k]?`<span class="chip3">${S.bets[k]}</span>`:''}</button>`;
  function render(){
   const onTable=Object.values(S.bets).reduce((a,b)=>a+b,0);
   el.innerHTML=`<div class="felt crp"><div class="shoebar"><div>${puck(S.point)} <span class="small">rolls: ${S.rolls}</span></div><div style="text-align:right">Bankroll<br><b style="color:var(--ink);font-size:1.15rem">$${S.bank}</b><br><span class="small">on table $${onTable}</span></div></div>
-   <div class="diceArea">${diceHTML(S.dice[0],S.dice[1],'big '+(S.phase==='rolling'?'rolling':'tumble'))}<div class="sum">${S.phase==='rolling'?'…':S.dice[0]+S.dice[1]}</div></div>
+   <div class="diceArea">${dice3dHTML(S.dice[0],S.dice[1])}<div class="sum">${S.phase==='rolling'?'…':S.dice[0]+S.dice[1]}</div></div>
    <div class="msg">${S.msg}</div><div class="fbline">${S.fb}</div><div class="controls"></div>
-   <div class="cgrid">
+   <div class="ctable"><div class="cgrid">
     ${spot('place6','Place 6','7:6 · $6')}${spot('place8','Place 8','7:6 · $6')}
     ${spot('field','Field','2·3·4·9·10·11·12 · $5')}
     ${spot('dont','Don’t Pass','bar 12 · $10')}
     ${spot('pass','Pass Line','1:1 · $10')}
    </div>
-   <div class="oddsrow ${can('odds')?'':'off'}"><span>Odds behind Pass${S.bets.odds?`: <b>$${S.bets.odds}</b>`:''}</span>${[1,2,3].map(m=>`<button class="btn sm" data-o="${m}" ${S.phase==='bet'&&can('odds')?'':'disabled'}>${m}×</button>`).join('')}</div>
+   </div><div class="oddsrow ${can('odds')?'':'off'}"><span>Odds behind Pass${S.bets.odds?`: <b>$${S.bets.odds}</b>`:''}</span>${[1,2,3].map(m=>`<button class="btn sm" data-o="${m}" ${S.phase==='bet'&&can('odds')?'':'disabled'}>${m}×</button>`).join('')}</div>
    <div class="acts" style="margin-top:8px"><button class="btn ghost sm" data-a="down" ${S.phase==='bet'&&['place6','place8','field','odds'].some(k=>S.bets[k])||(!S.point&&(S.bets.pass||S.bets.dont))?'':'disabled'}>Take down bets</button></div><p class="small" style="text-align:center;margin:6px 0 0">Tap a spot to add a chip. Pass and Don’t Pass are locked in once a point is set.</p>
   </div>
   <div class="stats"><div class="stat"><b>${S.n}</b>rolls settled</div><div class="stat"><b>${S.n?Math.round(S.ok/S.n*100)+'%':'—'}</b>payout accuracy</div><div class="stat"><b style="color:${S.bank+onTable>=500?'var(--good)':'var(--bad)'}">${S.bank+onTable>=500?'+':'−'}$${Math.abs(S.bank+onTable-500)}</b>session</div></div>`;

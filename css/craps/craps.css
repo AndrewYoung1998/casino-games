@@ -29,3 +29,38 @@
 .oddsrow{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:.85rem;color:var(--muted)}
 .oddsrow.off{opacity:.45}
 .settle{max-width:420px;margin:8px auto 0;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted);text-align:left}
+
+/* ---------- 3D dice tray ---------- */
+.diceArea{flex-direction:column;gap:2px;min-height:auto}
+.tray{position:relative;width:min(320px,86vw);height:118px;margin:0 auto;border-radius:16px;perspective:700px;background:radial-gradient(120% 120% at 50% 0,#0d7a4e,#05462d);box-shadow:inset 0 0 0 5px #4a2c12,inset 0 0 0 7px #d4af37,inset 0 14px 26px rgba(0,0,0,.45),0 14px 30px rgba(0,0,0,.45);overflow:hidden}
+.tray-wall{position:absolute;left:7px;right:7px;top:7px;height:20px;border-radius:9px 9px 0 0;background:repeating-linear-gradient(45deg,#1b1b1f 0 6px,#2c2c33 6px 12px),#222;box-shadow:inset 0 -4px 6px rgba(0,0,0,.6);opacity:.95}
+.die3{position:absolute;top:46px;width:52px;height:52px;--h:26px;transform-style:preserve-3d}
+.die3.d0{left:calc(50% - 66px)}.die3.d1{left:calc(50% + 14px)}
+.cube{position:absolute;inset:0;transform-style:preserve-3d}
+.die3 .face{position:absolute;inset:0;border-radius:10px;background:linear-gradient(145deg,#ffffff,#e9e9ee);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),inset 0 -4px 6px rgba(0,0,0,.08);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:8px;backface-visibility:hidden}
+.die3 .face i{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ff5a5a,#b91c1c);place-self:center;visibility:hidden;box-shadow:inset 0 1px 1px rgba(0,0,0,.4)}
+.die3 .face i.v{visibility:visible}
+.die3 .view{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(var(--ry,-26deg))}
+.die3.d1 .view{--ry:22deg}
+.die3 .dshadow{position:absolute;left:-2px;right:-6px;bottom:-14px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent)}
+.die3.throw{animation:throwIn 1.25s cubic-bezier(.2,.7,.25,1)}
+.die3.d1.throw{animation-name:throwIn2}
+@keyframes throwIn{0%{transform:translate(-200px,-14px) scale(.8)}45%{transform:translate(18px,-26px) scale(1.04)}62%{transform:translate(8px,6px)}78%{transform:translate(2px,-6px)}100%{transform:none}}
+@keyframes throwIn2{0%{transform:translate(-270px,-6px) scale(.8)}48%{transform:translate(26px,-30px) scale(1.04)}66%{transform:translate(10px,4px)}82%{transform:translate(3px,-5px)}100%{transform:none}}
+.diceArea .sum{font-size:1.7rem;font-weight:900;margin-top:6px}
+/* ---------- 3D table: tilted felt, rail, printed bet spots, chip stacks ---------- */
+.ctable{margin-top:14px;padding:12px;border-radius:18px;background:radial-gradient(120% 90% at 50% 0,#0b7a4f,#05472d);box-shadow:inset 0 0 0 7px #4a2c12,inset 0 0 0 9px #d4af37,inset 0 12px 30px rgba(0,0,0,.45),0 20px 40px rgba(0,0,0,.5);transform:perspective(1100px) rotateX(16deg);transform-origin:50% 0;margin-bottom:22px}
+.ctable .cgrid{margin-top:0}
+.ctable .cspot{background:linear-gradient(rgba(255,255,255,.04),rgba(0,0,0,.12));border:2px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 0 rgba(0,0,0,.25),0 3px 6px rgba(0,0,0,.35);text-shadow:0 1px 2px rgba(0,0,0,.5);transition:transform .12s,filter .12s}
+.ctable .cspot b{letter-spacing:.06em;text-transform:uppercase;font-size:.88rem}
+.ctable .cspot small{color:#fde68a}
+.ctable .cspot:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.15)}
+.ctable .cspot.pass{background:linear-gradient(rgba(255,255,255,.06),rgba(0,0,0,.14))}
+.ctable .cspot.dont{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.4))}
+.ctable .cspot.field b{color:#fde68a}
+.ctable .cspot.has{border-color:#facc15}
+.chip3{position:absolute;top:-12px;right:-6px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.62rem;font-weight:800;color:#111;background:radial-gradient(circle,#facc15 0 44%,#fff 45% 52%,#eab308 53%);box-shadow:0 2px 0 #a16207,0 4px 0 #854d0e,0 6px 8px rgba(0,0,0,.55);z-index:2}
+.chip3::before{content:"";position:absolute;inset:2px;border-radius:50%;border:2px dashed rgba(255,255,255,.85)}
+.puck{box-shadow:0 2px 0 #3f3f46,0 3px 0 #27272a,0 5px 8px rgba(0,0,0,.5)}
+.puck.on{box-shadow:0 2px 0 #a1a1aa,0 3px 0 #71717a,0 5px 10px rgba(0,0,0,.5),0 0 14px rgba(255,255,255,.4)}
+.felt.crp{padding-bottom:20px}
