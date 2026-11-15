@@ -70,8 +70,8 @@ function wheelSVG(american){
   <div class="w3d-light"></div><div class="w3d-ball"></div></div></div>`;
 }
 /* Geometry of the tilted plane, in px. Rotor fills 84% of the bowl. */
-function wheelGeom(box){const W=box.querySelector('.w3d-tilt').offsetWidth;return{W,c:W/2,track:W*.455,pocket:W*.42*.71,ball:W*.045}}
-function placeBall(box,angleDeg,r){const g=wheelGeom(box),b=box.querySelector('.w3d-ball'),a=angleDeg*Math.PI/180;b.style.width=b.style.height=g.ball+'px';b.style.left=(g.c+r*Math.sin(a)-g.ball/2)+'px';b.style.top=(g.c-r*Math.cos(a)-g.ball/2)+'px';b.style.opacity=1}
+function wheelGeom(box){const W=box.querySelector('.w3d-tilt').offsetWidth;return{W,c:W/2,track:W*.455,pocket:W*.42*.71,ball:W*.05}}
+function placeBall(box,angleDeg,r){const g=wheelGeom(box),b=box.querySelector('.w3d-ball'),a=angleDeg*Math.PI/180;b.style.width=b.style.height=g.ball+'px';b.style.left=(g.c+r*Math.sin(a)-g.ball/2)+'px';b.style.top=(g.c-r*Math.cos(a)-g.ball)+'px';b.style.opacity=1}
 /* Re-apply the stored wheel/ball position after a re-render. */
 function applyWheel(box,american){if(!box)return;box.querySelector('.w3d-rotor').style.transform=`rotate(${ROU_STATE.angle}deg)`;const b=ROU_STATE.ball;if(b&&b.american===american){const n=(american?US_ORDER:EU_ORDER).length;placeBall(box,ROU_STATE.angle+b.i*360/n,wheelGeom(box).pocket)}else box.querySelector('.w3d-ball').style.opacity=0}
 /* Spin: rotor turns clockwise, ball runs counter-clockwise, drops, and lands in `num`. Resolves when it settles. */
