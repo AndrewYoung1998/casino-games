@@ -1,0 +1,24 @@
+/* Texas Hold'em — board, showdown layouts and the live table. Loads after css/shared/base.css */
+.board{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:14px;padding:8px;display:inline-block}
+.players{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:10px}
+.felt.he{background:radial-gradient(700px 300px at 50% 40%,rgba(16,185,129,.16),transparent 70%),var(--panel)}
+.hbots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hseat{position:relative;text-align:center;padding:8px 4px 6px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.18);transition:border-color .2s,opacity .2s}
+.hseat.turn{border-color:#34d399;box-shadow:0 0 18px rgba(52,211,153,.35)}
+.hseat.folded{opacity:.45}
+.hseat.me{max-width:260px;margin:0 auto}
+.hseat.me .card.sm{width:56px;height:80px}.hseat.me .card.sm .mid{font-size:26px}
+.sname{font-weight:700;font-size:.85rem}
+.dbtn{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#fafafa;color:#111;font-size:.6rem;font-weight:900;vertical-align:1px}
+.sstack{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.sbet{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);background:#eab308;color:#111;font-size:.7rem;font-weight:800;border-radius:99px;padding:1px 8px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.shand{font-size:.7rem;color:#fde68a;margin-top:2px}
+.hcenter{text-align:center;margin:16px 0 12px;min-height:110px}
+.pot{font-size:.85rem;color:var(--muted);margin-bottom:4px}.pot b{color:var(--ink);font-size:1.1rem}
+.hme{margin-bottom:6px}
+.coach{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.coach div{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.35);border-radius:10px;padding:5px 10px;display:flex;flex-direction:column;align-items:center;min-width:86px}
+.coach span{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.coach b{font-size:1rem}
+.hlog{margin-top:10px;font-size:.74rem;color:var(--muted);line-height:1.5;max-height:130px;overflow:hidden;border-top:1px solid var(--line);padding-top:6px}
+.hlog div:last-child{color:var(--ink)}

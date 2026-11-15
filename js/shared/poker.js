@@ -48,3 +48,13 @@ function eval5(cs){
 }
 /* Deal n distinct cards from a fresh deck. */
 const dealN=n=>makeShoe(1).slice(0,n);
+
+/* Best five-card hand from 5, 6 or 7 cards (Hold'em). Returns the eval5 result plus .cards (the five used). */
+function eval7(cs){
+ if(cs.length===5){const e=eval5(cs);e.cards=cs;return e}
+ const drop=cs.length-5;let best=null;
+ const tryFive=five=>{const e=eval5(five);if(!best||cmpScore(e.score,best.score)>0){best=e;best.cards=five}};
+ if(drop===1)for(let a=0;a<cs.length;a++)tryFive(cs.filter((_,i)=>i!==a));
+ else for(let a=0;a<cs.length;a++)for(let b=a+1;b<cs.length;b++)tryFive(cs.filter((_,i)=>i!==a&&i!==b));
+ return best;
+}

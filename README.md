@@ -7,7 +7,7 @@ Open `index.html` to start. It's an animated home page with the full rules, payo
 | Game | Rules guide | Interactive trainer |
 |---|---|---|
 | Blackjack | ✅ | ✅ [Card Counting Academy](games/blackjack/index.html) (11 stages) |
-| Texas Hold'em | ✅ | Coming soon |
+| Texas Hold'em | ✅ | ✅ [Texas Hold'em](games/holdem/index.html) (8 stages) |
 | Roulette | ✅ | ✅ [Roulette](games/roulette/index.html) (5 stages) |
 | Craps | ✅ | ✅ [Craps](games/craps/index.html) (7 stages) |
 | Baccarat | ✅ | ✅ [Baccarat](games/baccarat/index.html) (5 stages) |
@@ -31,10 +31,11 @@ casino-games/
 │   ├── shared/
 │   │   ├── core.js           Helpers + deck/shuffle + card rendering
 │   │   ├── progress.js       Saves progress per game (read by the hub)
-│   │   ├── poker.js          3- and 5-card poker hand evaluator
+│   │   ├── poker.js          3-, 5- and 7-card poker hand evaluators
 │   │   └── academy.js        Trainer shell: stage list, lesson/practice tabs, quiz runner
 │   ├── baccarat/             rules (tableau) · stages · table-sim · app
 │   ├── craps/                rules (dice math, roll resolver) · stages · table-sim · app
+│   ├── holdem/               math (equity, outs, ranges) · engine (betting, side pots) · bots · stages · table-sim · app
 │   ├── paigow/               rules (joker eval, House Way) · setter · stages · table-sim · app
 │   ├── roulette/             rules (wheels, bets, layout) · stages · table-sim · app
 │   ├── threecard/            rules · stages · table-sim · app
@@ -52,6 +53,7 @@ casino-games/
     ├── baccarat/index.html
     ├── blackjack/index.html
     ├── craps/index.html
+    ├── holdem/index.html
     ├── paigow/index.html
     ├── roulette/index.html
     ├── threecard/index.html
