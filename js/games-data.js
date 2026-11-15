@@ -27,7 +27,7 @@ const GAMES=[
  strat:`<ul><li><b>Position is power.</b> Acting last lets you see what others do first, so play more hands from late position and fewer from early.</li><li><b>Be selective preflop.</b> Most hands should be folded. Strong starting hands include big pairs, A-K and A-Q.</li><li><b>Learn pot odds.</b> If calling $10 to win a $40 pot, you need to win more than 20% of the time to profit.</li><li>Count your <b>outs</b>, the cards that complete your hand. A rough rule: outs × 4 after the flop, or × 2 after the turn, gives your % chance to hit.</li><li>Bet for value when ahead, and avoid calling big bets with weak draws.</li></ul>`,
  practice:['Hand rankings speed quiz','"Who wins?" showdown reading drill','Outs and pot-odds calculator trainer','Preflop starting-hand chart by position']},
 
-{id:'roulette',stages:5,name:'Roulette',cat:'table',c1:'#e11d48',c2:'#f59e0b',status:'soon',edge:'2.7% / 5.26%',skill:1,diff:'Easy',
+{id:'roulette',stages:5,name:'Roulette',cat:'table',c1:'#e11d48',c2:'#f59e0b',status:'live',href:'games/roulette/index.html',edge:'2.7% / 5.26%',skill:1,diff:'Easy',
  tag:'Spin the wheel and learn every bet on the layout and what it pays.',
  icon:()=>wheel(),
  overview:`<div class="kpis"><div class="kpi"><small>House edge</small><b>2.70% single-zero · 5.26% double-zero</b></div><div class="kpi"><small>Players vs</small><b>The house</b></div><div class="kpi"><small>Skill</small><b>None — pure chance</b></div></div>
@@ -36,7 +36,7 @@ const GAMES=[
  pay:`<table><tr><th>Bet</th><th>Covers</th><th>Pays</th></tr><tr><td>Straight up</td><td>1 number</td><td class="n">35 : 1</td></tr><tr><td>Split</td><td>2 adjacent numbers</td><td class="n">17 : 1</td></tr><tr><td>Street</td><td>3 numbers in a row</td><td class="n">11 : 1</td></tr><tr><td>Corner</td><td>4 numbers in a square</td><td class="n">8 : 1</td></tr><tr><td>Six line</td><td>2 adjacent rows (6)</td><td class="n">5 : 1</td></tr><tr><td>Dozen / Column</td><td>12 numbers</td><td class="n">2 : 1</td></tr><tr><td>Red / Black, Odd / Even, 1–18 / 19–36</td><td>18 numbers</td><td class="n">1 : 1</td></tr><tr><td>Top line (American: 0-00-1-2-3)</td><td>5 numbers</td><td class="n">6 : 1</td></tr></table>
  <div class="callout">On a single-zero wheel, a straight-up bet wins 1 time in 37 but pays only 35:1. That shortfall is the 2.70% edge.</div>`,
  strat:`<ul><li><b>Choose single-zero (European) wheels.</b> They have half the house edge of American wheels.</li><li>Look for <b>La Partage</b> or <b>En Prison</b> rules. They return half of even-money bets when 0 hits, cutting that edge to 1.35%.</li><li>Avoid the American <b>top-line bet</b> (0-00-1-2-3). At 7.89% it's the worst bet on the table.</li><li><b>No betting system wins.</b> Martingale and similar doubling systems only change how you lose, often in one big hit at the table limit.</li><li>Every spin is independent. "Hot" and "due" numbers don't exist.</li></ul>`,
- practice:['Bet placement on an interactive layout','Payout calculation speed drill (dealer training style)','Odds visualizer comparing bet types','Free-play wheel with bankroll tracking']},
+ practice:['5-stage Roulette trainer — <b>live now</b>','Layout, colors, dozens and columns drills','Bet types and dealer-style payout drills','Live European/American wheel where you settle every spin']},
 
 {id:'craps',stages:7,name:'Craps',cat:'dice',c1:'#f59e0b',c2:'#ef4444',status:'soon',edge:'1.41% (Pass)',skill:2,diff:'Medium',
  tag:'The loudest table on the floor. Master the pass line, odds and point.',

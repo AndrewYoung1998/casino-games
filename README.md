@@ -8,7 +8,7 @@ Open `index.html` to start. It's an animated home page with the full rules, payo
 |---|---|---|
 | Blackjack | ✅ | ✅ [Card Counting Academy](games/blackjack/index.html) (11 stages) |
 | Texas Hold'em | ✅ | Coming soon |
-| Roulette | ✅ | Coming soon |
+| Roulette | ✅ | ✅ [Roulette](games/roulette/index.html) (5 stages) |
 | Craps | ✅ | Coming soon |
 | Baccarat | ✅ | ✅ [Baccarat](games/baccarat/index.html) (5 stages) |
 | Video Poker | ✅ | ✅ [Video Poker](games/videopoker/index.html) (6 stages) |
@@ -34,6 +34,7 @@ casino-games/
 │   │   ├── poker.js          3- and 5-card poker hand evaluator
 │   │   └── academy.js        Trainer shell: stage list, lesson/practice tabs, quiz runner
 │   ├── baccarat/             rules (tableau) · stages · table-sim · app
+│   ├── roulette/             rules (wheels, bets, layout) · stages · table-sim · app
 │   ├── threecard/            rules · stages · table-sim · app
 │   ├── videopoker/           strategy (paytable + 16-step hold ladder) · stages · machine · app
 │   └── blackjack/
@@ -48,6 +49,7 @@ casino-games/
 └── games/
     ├── baccarat/index.html
     ├── blackjack/index.html
+    ├── roulette/index.html
     ├── threecard/index.html
     └── videopoker/index.html
 ```

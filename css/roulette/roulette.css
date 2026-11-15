@@ -1,0 +1,28 @@
+/* Roulette — betting layout, wheel and number badges. Loads after css/shared/base.css */
+.layout{display:grid;grid-template-columns:44px 40px repeat(3,1fr);grid-template-rows:auto repeat(12,30px) 34px;gap:3px;max-width:340px;margin:10px auto 0;user-select:none}
+.lc{position:relative;width:100%;height:100%;min-height:30px;font:inherit;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(5,80,52,.55);color:#fff;font-weight:700;font-size:.85rem;display:grid;place-items:center;padding:0;transition:filter .12s,outline-color .12s}
+button.lc{cursor:pointer}button.lc:hover{filter:brightness(1.25)}
+.lc.num.red{background:#be123c}.lc.num.black{background:#18181b}.lc.num.green{background:#047857}
+.zeros{display:flex;gap:3px}.zeros .lc{flex:1;height:32px}
+.lc.out{background:rgba(5,80,52,.45);font-size:.66rem;letter-spacing:.04em}
+.lc.colb{font-size:.72rem}
+.vt{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.dia{width:16px;height:26px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.dia.r{background:#e11d48}.dia.b{background:#0a0a0a;outline:1px solid #555}
+.lc.hl{outline:3px solid #fde68a;outline-offset:-2px;box-shadow:0 0 16px rgba(253,230,138,.6);z-index:1}
+.chipm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:24px;height:24px;padding:0 4px;border-radius:99px;background:#eab308;color:#111;border:2px dashed #fff;font-size:.62rem;font-weight:800;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.5);animation:pop .15s}
+.lesson-layout{width:100%;max-width:300px;margin:0 auto}
+.lesson-layout .layout{max-width:none}
+.bignum{font-size:4.5rem;font-weight:900;letter-spacing:-.04em;width:140px;height:140px;border-radius:50%;display:grid;place-items:center;background:var(--panel2);border:2px solid var(--line);transition:background .3s}
+.bignum.red{background:#be123c}.bignum.black{background:#18181b}
+.nb{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border-radius:99px;font-weight:800;font-size:.85rem;color:#fff;margin:2px}
+.nb.red{background:#e11d48}.nb.black{background:#27272a;border:1px solid #52525b}.nb.green{background:#059669}
+.flash .nb{min-width:56px;height:56px;font-size:1.5rem}
+.felt.rou{background:radial-gradient(600px 260px at 50% 0,rgba(225,29,72,.14),transparent 70%),var(--panel)}
+.rou-top{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:6px 0}
+.wheelbox{position:relative;width:min(220px,62vw)}
+.rwheel{width:100%;display:block;filter:drop-shadow(0 12px 24px rgba(0,0,0,.6))}
+.ball{transition:opacity .3s;filter:drop-shadow(0 0 3px #fff)}
+.pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:14px solid #fde68a;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.hist{max-width:150px;text-align:center}
+.betlist{display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.2);border:1px solid var(--line);font-size:.95rem}
+.settle{max-width:420px;margin:8px auto 0;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted);text-align:left}
