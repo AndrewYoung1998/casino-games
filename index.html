@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Casino Academy — Learn the Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid-bg"></div><div id="floaties"></div></div>
+<div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+<div class="wrap">
+ <section class="hero">
+  <div class="bulbs top" id="bt"></div><div class="bulbs bot" id="bb"></div>
+  <div class="hero-cards" id="heroCards"></div>
+  <span class="eyebrow"><span class="dot"></span> Learn · Practice · Play smarter</span>
+  <h1>Casino Academy</h1>
+  <p>Pick a table, learn the rules, then practice in interactive trainers that take you from beginner to sharp. No money involved — just skill.</p>
+  <div class="hero-cta"><a class="btn primary" href="games/blackjack/index.html">♠ Start the Blackjack trainer</a><a class="btn" href="#games-grid" id="browse">Browse all games ↓</a></div>
+  <div class="hero-stats"><div><b id="sGames">0</b><small>Games</small></div><div><b id="sLive">0</b><small>Trainers live</small></div><div><b id="sPassed">0</b><small>Stages you’ve passed</small></div></div>
+ </section>
+
+ <div class="sec-h" id="games-grid"><div><h2>Choose your table</h2><p>Tap any game for its full rules, payouts and strategy.</p></div><div class="filters" id="filters"></div></div>
+ <div class="tiles" id="tiles"></div>
+
+ <div class="sec-h"><div><h2>Know the odds</h2><p>The house edge is how much of each bet the casino keeps on average. Lower is better.</p></div></div>
+ <div class="odds" id="odds"></div>
+
+ <div class="sec-h"><div><h2>How the academy works</h2><p>Every game follows the same path.</p></div></div>
+ <div class="path">
+  <div class="step"><span class="n">1</span><span class="ic">📖</span><h4>Learn the rules</h4><p>Plain-English guides with the steps of play, every bet and its payout.</p></div>
+  <div class="step"><span class="n">2</span><span class="ic">🎯</span><h4>Drill the basics</h4><p>Short, focused quizzes until reading the table is automatic.</p></div>
+  <div class="step"><span class="n">3</span><span class="ic">🧠</span><h4>Learn the strategy</h4><p>The mathematically best decisions, with instant feedback when you miss.</p></div>
+  <div class="step"><span class="n">4</span><span class="ic">🎰</span><h4>Play the full table</h4><p>A realistic simulator with play money, stats and pass marks.</p></div>
+ </div>
+
+ <footer>Casino Academy is a free learning tool that uses play money only. Every casino game has a built-in house edge, and no strategy guarantees a win.<br>If you gamble, set a limit and treat it as entertainment. Need help? In the US, call or text <b>1-800-GAMBLER</b>.</footer>
+</div>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+ <div class="panel" role="dialog" aria-modal="true" aria-labelledby="ptitle">
+  <div class="phead"><div class="ico" id="pico"></div><div><h2 id="ptitle"></h2><p id="ptag"></p></div><button class="close" id="pclose" aria-label="Close">×</button></div>
+  <nav class="ptabs" id="ptabs"></nav>
+  <div class="pbody" id="pbody"></div>
+  <div class="pfoot" id="pfoot"></div>
+ </div>
+</div>
+
+<script src="js/shared/progress.js"></script>
+<script src="js/components.js"></script>
+<script src="js/games-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
