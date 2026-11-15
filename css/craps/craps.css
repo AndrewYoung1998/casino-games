@@ -1,0 +1,31 @@
+/* Craps — dice, puck, betting spots. Loads after css/shared/base.css */
+.dice{display:flex;gap:16px;justify-content:center}
+.die{width:46px;height:46px;border-radius:10px;background:linear-gradient(145deg,#fff,#e5e7eb);box-shadow:0 8px 18px rgba(0,0,0,.5),inset 0 -3px 0 rgba(0,0,0,.08);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:6px;gap:2px}
+.die.big{width:68px;height:68px;border-radius:14px;padding:10px}
+.die i{width:8px;height:8px;border-radius:50%;background:#dc2626;place-self:center;visibility:hidden}
+.die.big i{width:11px;height:11px}
+.die i.v{visibility:visible}
+.die.tumble{animation:tumble .6s cubic-bezier(.3,.7,.3,1)}
+.die.tumble:nth-child(2){animation-delay:.06s}
+.die.rolling{animation:shake .15s linear infinite}
+@keyframes tumble{0%{transform:translateY(-40px) rotate(-220deg);opacity:.2}60%{transform:translateY(4px) rotate(12deg)}100%{transform:none}}
+@keyframes shake{0%{transform:rotate(-12deg) translateY(-3px)}50%{transform:rotate(12deg) translateY(3px)}100%{transform:rotate(-12deg) translateY(-3px)}}
+.bigtotal{font-size:4.5rem;font-weight:900;letter-spacing:-.04em;width:130px;height:130px;border-radius:24px;display:grid;place-items:center;background:var(--panel2);border:2px solid var(--line)}
+.puck{display:inline-block;padding:4px 10px;border-radius:99px;font-size:.72rem;font-weight:800;letter-spacing:.08em;background:#18181b;color:#e4e4e7;border:2px solid #52525b;vertical-align:middle}
+.puck.on{background:#fafafa;color:#111;border-color:#fafafa;box-shadow:0 0 14px rgba(255,255,255,.4)}
+.felt.crp{background:radial-gradient(600px 260px at 50% 0,rgba(245,158,11,.14),transparent 70%),var(--panel)}
+.diceArea{display:flex;align-items:center;justify-content:center;gap:16px;min-height:100px;margin:6px 0}
+.diceArea .sum{font-size:2.2rem;font-weight:900;min-width:48px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.cspot{position:relative;padding:12px 8px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(4,90,58,.4);color:var(--ink);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:filter .12s,border-color .12s}
+.cspot small{color:#a7f3d0;font-size:.68rem;opacity:.85}
+.cspot:hover:not(:disabled){filter:brightness(1.2)}
+.cspot:disabled{opacity:.45;cursor:default}
+.cspot.has{border-color:#eab308}
+.cspot.field,.cspot.pass{grid-column:span 2}
+.cspot.pass{background:rgba(4,90,58,.65);padding:16px}
+.cspot.dont{grid-column:span 2;background:rgba(24,24,27,.6)}
+.cspot .stake{position:absolute;top:-9px;right:-6px;background:#eab308;color:#111;font-size:.72rem;font-weight:800;border-radius:99px;padding:2px 7px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.oddsrow{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:.85rem;color:var(--muted)}
+.oddsrow.off{opacity:.45}
+.settle{max-width:420px;margin:8px auto 0;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted);text-align:left}
