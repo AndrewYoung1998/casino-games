@@ -11,8 +11,8 @@ Open `index.html` to start. It's an animated home page with the full rules, payo
 | Roulette | ✅ | Coming soon |
 | Craps | ✅ | Coming soon |
 | Baccarat | ✅ | Coming soon |
-| Video Poker | ✅ | Coming soon |
-| Three Card Poker | ✅ | Coming soon |
+| Video Poker | ✅ | ✅ [Video Poker](games/videopoker/index.html) (6 stages) |
+| Three Card Poker | ✅ | ✅ [Three Card Poker](games/threecard/index.html) (5 stages) |
 | Pai Gow Poker | ✅ | Coming soon |
 
 ## Project structure
@@ -22,8 +22,8 @@ casino-games/
 ├── index.html                Hub / dashboard page
 ├── css/
 │   ├── main.css              Hub styles
-│   ├── shared/base.css       Shared trainer styles: colors, buttons, tabs, quizzes, playing cards
-│   └── blackjack/            Blackjack-only styles (strategy chart, table simulator)
+│   ├── shared/base.css       Shared trainer styles: colors, buttons, tabs, quizzes, cards, table layout
+│   └── <game>/<game>.css     Game-only styles
 ├── js/
 │   ├── components.js         Hub visuals: mini cards, chips, dice, roulette wheel
 │   ├── games-data.js         Rules, payouts, strategy, odds and stage counts for every game
@@ -31,7 +31,10 @@ casino-games/
 │   ├── shared/
 │   │   ├── core.js           Helpers + deck/shuffle + card rendering
 │   │   ├── progress.js       Saves progress per game (read by the hub)
+│   │   ├── poker.js          3- and 5-card poker hand evaluator
 │   │   └── academy.js        Trainer shell: stage list, lesson/practice tabs, quiz runner
+│   ├── threecard/            rules · stages · table-sim · app
+│   ├── videopoker/           strategy (paytable + 16-step hold ladder) · stages · machine · app
 │   └── blackjack/
 │       ├── cards.js          Counting systems, count tally, discard tray
 │       ├── strategy.js       Hand values, basic strategy, Illustrious 18, bet ramp
@@ -40,9 +43,11 @@ casino-games/
 │       └── app.js            Starts the trainer (loads last)
 ├── img/
 │   ├── hub/                  Images for the hub (none yet)
-│   └── blackjack/            Images for blackjack (none yet)
+│   └── <game>/               Images per game (none yet)
 └── games/
-    └── blackjack/index.html  Blackjack trainer page
+    ├── blackjack/index.html
+    ├── threecard/index.html
+    └── videopoker/index.html
 ```
 
 ### Adding a game

@@ -25,7 +25,8 @@ document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return
 /* ---------- generic drill runner ----------
    gen(i) returns a question:
    { html, explain, check(answer)→bool,
-     choices:[{v,l}]  OR  type:'number',
+     choices:[{v,l}]  OR  type:'number'  OR  custom(answerEl, respond) for bespoke inputs,
+     onKey?(event) keyboard handling for custom inputs,
      play?(promptEl) async animation before answering,
      reveal?(promptEl) called after answering } */
 function runDrill(el,stage,cfg){
@@ -56,13 +57,16 @@ function runDrill(el,stage,cfg){
    ans.innerHTML=`<form class="numform">${numHTML()}<button class="btn primary">Submit</button></form>`;wireNum(ans);
    const inp=$('input',ans);$('form',ans).onsubmit=e=>{e.preventDefault();const v=readNum(inp);if(isNaN(v)){inp.focus();return}respond(v)};
    if(matchMedia('(hover:hover)').matches)inp.focus({preventScroll:true});
+  }else if(q.custom){
+   q.custom(ans,respond);
   }else{
    ans.innerHTML=`<div class="choices">${q.choices.map((c,k)=>`<button class="btn choice" data-v="${c.v}"><span class="kbd">${k+1}</span> ${c.l}</button>`).join('')}</div>`;
    ans.querySelectorAll('.choice').forEach(b=>b.onclick=()=>respond(b.dataset.v));
   }
   keyHandler=e=>{
    if(e.key==='Enter'&&nextBtn){e.preventDefault();nextBtn.click();return}
-   if(!answered&&q.choices&&/^[1-9]$/.test(e.key)){const b=ans.querySelectorAll('.choice')[+e.key-1];if(b)b.click()}
+   if(!answered&&q.onKey){q.onKey(e);return}
+   if(!answered&&q.choices&&/^[0-9]$/.test(e.key)){const b=ans.querySelectorAll('.choice')[e.key==='0'?9:+e.key-1];if(b)b.click()}
   };
  }
  function finish(){
