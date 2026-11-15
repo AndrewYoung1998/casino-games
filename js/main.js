@@ -16,7 +16,7 @@ $('#floaties').innerHTML=Array.from({length:14},()=>{const s=['♠','♥','♦',
 $('#filters').innerHTML=CATS.map(([k,l],i)=>`<button data-c="${k}" class="${i?'':'on'}">${l}</button>`).join('');
 $('#tiles').innerHTML=GAMES.map((g,i)=>`<a class="tile" href="#${g.id}" data-cat="${g.cat}" style="--c1:${g.c1};--c2:${g.c2};--d:${i*.06}s"><div class="art">${g.icon()}</div><div class="tbody"><div class="badges">${g.status==='live'?'<span class="badge live">● Trainer live</span>':'<span class="badge soon">Trainer coming soon</span>'}<span class="badge">${g.diff}</span></div><h3>${g.name}</h3><p>${g.tag}</p><div class="meta"><div>House edge<b>${g.edge}</b></div><div style="text-align:right">Skill matters<div class="pips" style="justify-content:flex-end">${[1,2,3,4,5].map(n=>`<i class="${n<=g.skill?'on':''}"></i>`).join('')}</div></div></div>${progressHTML(g)}<span class="learn">Rules & strategy <span>→</span></span></div></a>`).join('');
 const live=GAMES.filter(g=>g.status==='live').length;
-function countUp(el,to){let n=0;const t=setInterval(()=>{n++;el.textContent=n;if(n>=to)clearInterval(t)},70)}
+function countUp(el,to){let n=0;if(to<=0){el.textContent=0;return}const t=setInterval(()=>{n++;el.textContent=n;if(n>=to)clearInterval(t)},70)}
 countUp($('#sGames'),GAMES.length);countUp($('#sLive'),live);
 const totalPassed=GAMES.filter(g=>g.status==='live').reduce((a,g)=>a+Math.min(Progress.passed(g.id),g.stages),0);countUp($('#sPassed'),totalPassed);
 // filters
