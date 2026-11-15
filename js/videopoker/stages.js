@@ -2,16 +2,14 @@
 /* Video Poker — lessons and drills for all 6 stages. */
 const VP_CATS=['Royal flush','Straight flush','Four of a kind','Full house','Flush','Straight','Three of a kind','Two pair','Jacks or better','No win'];
 const C5=(rs,suits)=>rs.map((r,i)=>({r,s:suits?suits[i]:pick(SUITS)}));
-/* Build a 5-card hand that lands in VP_CATS[i]. */
+/* Build a 5-card hand that lands in VP_CATS[i] (0 royal … 7 two pair, 8 Jacks or better, 9 no win). */
 function vpHandOfCat(i){
- const s=pick(SUITS),R=['A','2','3','4','5','6','7','8','9','10','J','Q','K','A'];
- if(i===0)return shuffle(C5(['10','J','Q','K','A'],Array(5).fill(s)));
- if(i===1){const st=rnd(9);return shuffle(C5(R.slice(st,st+5),Array(5).fill(s)))}
- if(i===2){const r=pick(RANKS);let k;do k=pick(RANKS);while(k===r);return shuffle([...SUITS.map(x=>({r,s:x})),{r:k,s:pick(SUITS)}])}
- if(i===3){const a=pick(RANKS);let b;do b=pick(RANKS);while(b===a);return shuffle([...shuffle([...SUITS]).slice(0,3).map(x=>({r:a,s:x})),...shuffle([...SUITS]).slice(0,2).map(x=>({r:b,s:x}))])}
- for(let n=0;n<50000;n++){const h=dealN(5),p=vpPayout(h,1);const idx=p.row<0?9:p.row;if(idx===i)return h}
- return dealN(5);
+ if(i<=7)return buildHand5([9,8,7,6,5,4,3,2][i]);
+ for(let n=0;n<500;n++){const h=buildHand5(pick(i===8?[1]:[0,1])),row=vpPayout(h,1).row;if((i===8&&row===8)||(i===9&&row<0))return h}
+ return buildHand5(0);
 }
+/* Which VP_CATS answer a hand really is. */
+const vpCatOf=h=>{const r=vpPayout(h,1).row;return r<0?9:r};
 const vpRow=(h,mask,cls='')=>`<div class="hand vprow ${cls}">${h.map((c,i)=>`<div class="vpc ${mask&(1<<i)?'held':'dim'}">${cardHTML(c)}<span class="heldtag">HELD</span></div>`).join('')}</div>`;
 /* Custom answer UI: tap cards to hold, then lock in. Answer value = 5-bit mask. */
 function vpHoldQuestion(hand,html,explainExtra=''){
@@ -35,7 +33,7 @@ const STAGES=[
 lesson:`<h3>How the game works</h3><ol><li>Bet 1 to 5 coins.</li><li>You're dealt five cards from a freshly shuffled 52-card deck.</li><li>Choose which cards to <b>hold</b>.</li><li>The rest are replaced from the same deck.</li><li>Your final hand is paid from the paytable.</li></ol>
 <h3>The paying hands, best first</h3><table><tr><th>Hand</th><th>Example</th></tr><tr><td><b>Royal flush</b></td><td>10♠ J♠ Q♠ K♠ A♠</td></tr><tr><td><b>Straight flush</b></td><td>5♥ 6♥ 7♥ 8♥ 9♥</td></tr><tr><td><b>Four of a kind</b></td><td>9♣ 9♦ 9♥ 9♠ 2♦</td></tr><tr><td><b>Full house</b></td><td>K♠ K♦ K♣ 4♥ 4♠</td></tr><tr><td><b>Flush</b></td><td>A♦ J♦ 8♦ 5♦ 2♦</td></tr><tr><td><b>Straight</b></td><td>A♣ 2♦ 3♠ 4♥ 5♣ <small>(Ace can be low or high)</small></td></tr><tr><td><b>Three of a kind</b></td><td>7♠ 7♥ 7♦ K♣ 2♠</td></tr><tr><td><b>Two pair</b></td><td>J♥ J♣ 4♠ 4♦ A♥</td></tr><tr><td><b>Jacks or better</b></td><td>A pair of J, Q, K or A</td></tr></table>
 <div class="tip">A pair of 10s or lower pays <b>nothing</b>. That's what "Jacks or Better" means.</div>`,
-drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const i=pick([0,1,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,9]);const h=vpHandOfCat(i);const e=eval5(h);
+drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const h=vpHandOfCat(pick([0,1,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,9])),i=vpCatOf(h),e=eval5(h);
  return{html:`<div class="flash"><div class="hand">${h.map(c=>cardHTML(c,'deal')).join('')}</div></div><p class="ask">What does this hand pay as?</p>`,choices:VP_CATS.map((c,k)=>({v:String(k),l:c})),check:x=>+x===i,
  explain:`<b>${VP_CATS[i]}</b>.${i===9&&e.cat===1?' A pair below Jacks doesn’t pay.':''}${i===5&&h.some(c=>c.r==='A')&&h.some(c=>c.r==='2')?' Ace plays low here.':''}`}}})}},
 
