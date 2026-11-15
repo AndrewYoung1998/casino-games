@@ -3,7 +3,6 @@
 const HAND_CHOICES=[...HAND5].reverse().map(h=>({v:h,l:h}));
 const H=(cs,cls='deal')=>`<div class="hand">${cs.map(c=>cardHTML(c,cls)).join('')}</div>`;
 const boardHTML=b=>`<div class="board"><div class="lbl">Board</div>${H(b,'deal')}</div>`;
-function handOfCat5(cat){for(let i=0;i<60000;i++){const h=dealN(5);if(eval5(h).cat===cat)return h}return dealN(5)}
 /* Deal hole + board (n cards) whose current hand is pair or worse and that has 4–15 outs to a straight or better. */
 function drawSpot(nBoard){for(let i=0;i<3000;i++){const d=makeShoe(1),hole=d.slice(0,2),board=d.slice(2,2+nBoard);if(eval7([...hole,...board]).cat>1)continue;const o=outsTo(hole,board,4);if(o.length>=4&&o.length<=15)return{hole,board,outs:o}}return drawSpot(nBoard)}
 const outsText=o=>{const by={};o.forEach(c=>(by[c.s]=by[c.s]||[]).push(c.r));return Object.entries(by).map(([s,rs])=>rs.join(' ')+s).join(' · ')};
@@ -12,7 +11,7 @@ const STAGES=[
 {id:'ranks',level:'Beginner',title:'Hand Rankings',blurb:'The ten poker hands, best to worst, until they’re instant.',goal:'Goal: 90% on 20 hands.',
 lesson:`<h3>How Hold'em works</h3><ol><li>Two players post <b>blinds</b> (forced bets) to start the pot.</li><li>Everyone gets two private <b>hole cards</b>. Then comes the first betting round.</li><li><b>The flop:</b> three shared cards, then betting. <b>The turn:</b> a fourth card, then betting. <b>The river:</b> a fifth card, then the last round of betting.</li><li>On each turn you can <b>fold</b>, <b>check</b> (if nobody has bet), <b>call</b> or <b>bet/raise</b>.</li><li><b>Showdown:</b> the best five-card hand from your two cards plus the five on the board wins.</li></ol>
 <h3>Hand rankings</h3>${RANK_TABLE}<p>Within a type, higher cards win: a pair of Kings beats a pair of Queens, and with the same pair the next-highest card (the <b>kicker</b>) decides.</p>`,
-drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const cat=pick([0,1,1,2,2,3,3,4,4,5,5,6,6,7,8,9]),h=handOfCat5(cat);return{html:`<div class="flash">${H(h)}</div><p class="ask">What hand is this?</p>`,choices:HAND_CHOICES,check:x=>x===HAND5[cat],explain:`<b>${HAND5[cat]}</b>.`}}})}},
+drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const h=buildHand5(pick([0,1,1,2,2,3,3,4,4,5,5,6,6,7,8,9])),name=eval5(h).name;return{html:`<div class="flash">${H(h)}</div><p class="ask">What hand is this?</p>`,choices:HAND_CHOICES,check:x=>x===name,explain:`<b>${name}</b>.`}}})}},
 
 {id:'best5',level:'Beginner',title:'Best Five of Seven',blurb:'Read the board plus your two cards and find your real hand.',goal:'Goal: 85% on 15 boards.',
 lesson:`<h3>Seven cards, best five</h3><p>Your hand is the <b>best five</b> of your 2 hole cards plus the 5 board cards. You can use both hole cards, one, or none ("playing the board").</p>

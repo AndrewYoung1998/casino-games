@@ -12,7 +12,7 @@ const STAGES=[
 lesson:`<h3>Only three cards</h3><p>With three cards, some hands are rarer than in regular poker, so the order changes. A <b>straight beats a flush</b>, and <b>three of a kind beats a straight</b>.</p>${TCP_RANK_TABLE}
 <ul><li>Aces can play high (A-K-Q, the best straight) or low (A-2-3, the lowest straight).</li><li>Q-K-A is a straight, but K-A-2 is not. Straights don't wrap around.</li><li>Within the same hand type, the highest card decides. A pair is compared on the pair first, then the third card.</li></ul>
 <p class="tip">On a keyboard, press 1–6 to answer.</p>`,
-drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const cat=pick([0,1,1,2,2,3,3,4,5]);const h=tcpHandOfCat(cat);
+drill(el){runDrill(el,this,{total:20,pass:.9,auto:true,gen(){const h=tcpHandOfCat(pick([0,1,1,2,2,3,3,4,5])),cat=eval3(h).cat;
  return{html:`<div class="flash">${tcpHandHTML(h,'big deal')}</div><p class="ask">What hand is this?</p>`,choices:[5,4,3,2,1,0].map(c=>({v:String(c),l:HAND3[c]})),check:x=>+x===cat,explain:`${handStr(h)} is a <b>${HAND3[cat]}</b>.${cat===3&&h.some(c=>c.r==='A')?' Aces can play low or high in a straight.':''}`}}})}},
 
 {id:'showdown',level:'Beginner',title:'Who Wins?',blurb:'Compare your hand to the dealer’s, including kickers and ties.',goal:'Goal: 85% on 15 showdowns.',

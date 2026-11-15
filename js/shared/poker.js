@@ -58,3 +58,40 @@ function eval7(cs){
  else for(let a=0;a<cs.length;a++)for(let b=a+1;b<cs.length;b++)tryFive(cs.filter((_,i)=>i!==a&&i!==b));
  return best;
 }
+
+/* ---------- build a hand of an exact category (for drills) ----------
+   Builds the hand directly instead of searching random deals, so rare hands
+   (royal and straight flushes) appear instantly. Always verified with the evaluator. */
+const SEQ=['A','2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+function distinctRanks(n,exclude=[]){return shuffle(RANKS.filter(r=>!exclude.includes(r))).slice(0,n)}
+function buildHand5(cat){
+ for(let tries=0;tries<500;tries++){
+  const s=pick(SUITS),rs=()=>pick(SUITS);let h;
+  if(cat===9)h=['10','J','Q','K','A'].map(r=>({r,s}));
+  else if(cat===8){const st=rnd(9);h=SEQ.slice(st,st+5).map(r=>({r,s}))}
+  else if(cat===7){const[a,k]=distinctRanks(2);h=[...SUITS.map(x=>({r:a,s:x})),{r:k,s:rs()}]}
+  else if(cat===6){const[a,b]=distinctRanks(2);h=[...shuffle([...SUITS]).slice(0,3).map(x=>({r:a,s:x})),...shuffle([...SUITS]).slice(0,2).map(x=>({r:b,s:x}))]}
+  else if(cat===5)h=distinctRanks(5).map(r=>({r,s}));
+  else if(cat===4){const st=rnd(10);h=SEQ.slice(st,st+5).map(r=>({r,s:rs()}))}
+  else if(cat===3){const[a,...k]=distinctRanks(3);h=[...shuffle([...SUITS]).slice(0,3).map(x=>({r:a,s:x})),...k.map(r=>({r,s:rs()}))]}
+  else if(cat===2){const[a,b,k]=distinctRanks(3);h=[...shuffle([...SUITS]).slice(0,2).map(x=>({r:a,s:x})),...shuffle([...SUITS]).slice(0,2).map(x=>({r:b,s:x})),{r:k,s:rs()}]}
+  else if(cat===1){const[a,...k]=distinctRanks(4);h=[...shuffle([...SUITS]).slice(0,2).map(x=>({r:a,s:x})),...k.map(r=>({r,s:rs()}))]}
+  else h=distinctRanks(5).map(r=>({r,s:rs()}));
+  if(eval5(h).cat===cat)return shuffle(h);
+ }
+ return dealN(5);
+}
+/* Three-card version (Three Card Poker categories: 0 high … 5 straight flush). */
+function buildHand3(cat){
+ for(let tries=0;tries<500;tries++){
+  const s=pick(SUITS),rs=()=>pick(SUITS);let h;
+  if(cat===5){const st=rnd(12);h=SEQ.slice(st,st+3).map(r=>({r,s}))}
+  else if(cat===4){const a=pick(RANKS);h=shuffle([...SUITS]).slice(0,3).map(x=>({r:a,s:x}))}
+  else if(cat===3){const st=rnd(12);h=SEQ.slice(st,st+3).map(r=>({r,s:rs()}))}
+  else if(cat===2)h=distinctRanks(3).map(r=>({r,s}));
+  else if(cat===1){const[a,k]=distinctRanks(2);h=[...shuffle([...SUITS]).slice(0,2).map(x=>({r:a,s:x})),{r:k,s:rs()}]}
+  else h=distinctRanks(3).map(r=>({r,s:rs()}));
+  if(eval3(h).cat===cat)return shuffle(h);
+ }
+ return dealN(3);
+}

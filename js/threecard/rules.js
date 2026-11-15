@@ -22,7 +22,7 @@ function tcpSettle(p,d,ante,pp,played){
  return{net,lines,outcome,ep,ed};
 }
 /* Deal a 3-card hand of a chosen category (for drills). */
-function tcpHandOfCat(cat){for(let i=0;i<20000;i++){const h=dealN(3);if(eval3(h).cat===cat)return h}return dealN(3)}
+const tcpHandOfCat=cat=>buildHand3(cat);
 /* A high-card hand close to the Q-6-4 line, the decisions players get wrong most. */
 function tcpBorderline(){for(let i=0;i<20000;i++){const h=dealN(3),e=eval3(h);if(e.cat)continue;const v=h.map(rv).sort((a,b)=>b-a);if(v[0]===12||(v[0]===11&&Math.random()<.3)||(v[0]===13&&Math.random()<.3))return h}return dealN(3)}
 const tcpHandHTML=(h,cls='deal')=>`<div class="hand">${h.map(c=>cardHTML(c,cls)).join('')}</div>`;
