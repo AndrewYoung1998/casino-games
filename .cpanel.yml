@@ -1,0 +1,7 @@
+---
+# cPanel Git deployment: copies only the public site files to the subdomain.
+# The repository itself stays outside the web root.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/faqfrckb/casino.andrewyoung.space/
+    - /bin/cp -R index.html css js img games $DEPLOYPATH
