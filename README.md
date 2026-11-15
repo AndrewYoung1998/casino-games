@@ -10,7 +10,7 @@ Open `index.html` to start. It's an animated home page with the full rules, payo
 | Texas Hold'em | ✅ | Coming soon |
 | Roulette | ✅ | Coming soon |
 | Craps | ✅ | Coming soon |
-| Baccarat | ✅ | Coming soon |
+| Baccarat | ✅ | ✅ [Baccarat](games/baccarat/index.html) (5 stages) |
 | Video Poker | ✅ | ✅ [Video Poker](games/videopoker/index.html) (6 stages) |
 | Three Card Poker | ✅ | ✅ [Three Card Poker](games/threecard/index.html) (5 stages) |
 | Pai Gow Poker | ✅ | Coming soon |
@@ -33,6 +33,7 @@ casino-games/
 │   │   ├── progress.js       Saves progress per game (read by the hub)
 │   │   ├── poker.js          3- and 5-card poker hand evaluator
 │   │   └── academy.js        Trainer shell: stage list, lesson/practice tabs, quiz runner
+│   ├── baccarat/             rules (tableau) · stages · table-sim · app
 │   ├── threecard/            rules · stages · table-sim · app
 │   ├── videopoker/           strategy (paytable + 16-step hold ladder) · stages · machine · app
 │   └── blackjack/
@@ -45,6 +46,7 @@ casino-games/
 │   ├── hub/                  Images for the hub (none yet)
 │   └── <game>/               Images per game (none yet)
 └── games/
+    ├── baccarat/index.html
     ├── blackjack/index.html
     ├── threecard/index.html
     └── videopoker/index.html
@@ -62,6 +64,10 @@ Each game uses the same folder name everywhere. For a game called `roulette`:
    ```
 4. Put any images in `img/roulette/`.
 5. In `js/games-data.js`, set `status:'live'` and `href:'games/roulette/index.html'`. The hub then shows a progress bar for the game automatically.
+
+### Share previews
+
+Every page has description, Open Graph and Twitter tags (inside `<!-- share / SEO metadata -->`) that point to `img/<game>/og-image.png` (1200×630). For a new game, copy the block from another game page and update the title, description, URL and image. Shared icons live in `img/hub/` (`favicon.svg`, `apple-touch-icon.png`).
 
 Progress is stored in the browser's localStorage under `casino-academy:<game id>`.
 

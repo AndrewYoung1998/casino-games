@@ -1,0 +1,16 @@
+/* Baccarat — bet spots, third-card styling and the bead road. Loads after css/shared/base.css */
+.felt.bac{background:radial-gradient(600px 260px at 50% 0,rgba(234,179,8,.14),transparent 70%),var(--panel)}
+.bac-hands{display:flex;justify-content:center;gap:clamp(12px,6vw,48px);flex-wrap:wrap}
+.card.side{transform:rotate(90deg);margin:3px 14px}
+.bets{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.betspot{position:relative;min-width:96px;padding:12px 10px;border-radius:14px;border:2px dashed var(--line);background:rgba(0,0,0,.2);color:var(--ink);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:border-color .15s,background .15s,transform .1s}
+.betspot small{color:var(--muted);font-size:.72rem}
+.betspot.P{--bc:#38bdf8}.betspot.B{--bc:#f43f5e}.betspot.T{--bc:#34d399}
+.betspot:hover{border-color:var(--bc)}
+.betspot.on{border-style:solid;border-color:var(--bc);background:color-mix(in srgb,var(--bc) 14%,transparent)}
+.betspot .stake{position:absolute;top:-10px;right:-8px;background:#eab308;color:#111;font-size:.72rem;font-weight:800;border-radius:99px;padding:2px 7px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.road-wrap{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;overflow-x:auto}
+.road{display:flex;gap:3px;min-height:132px}
+.rcol{display:flex;flex-direction:column;gap:3px}
+.bead{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:.6rem;font-weight:800;color:#fff;animation:pop .2s}
+.bead.B{background:#e11d48}.bead.P{background:#0284c7}.bead.T{background:#059669}

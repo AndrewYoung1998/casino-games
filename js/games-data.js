@@ -49,7 +49,7 @@ const GAMES=[
  strat:`<ul><li><b>Pass Line plus maximum odds</b> is the classic smart play. The more odds you take, the lower your overall edge.</li><li>Don't Pass is slightly better mathematically, but you're betting against the table, which some players dislike.</li><li>If you place numbers, stick to <b>6 and 8</b>.</li><li>Skip the center-table proposition bets (Any 7, hardways, horn). Their edges run 9–17%.</li><li>Dice have no memory, and no throwing style changes the outcome.</li></ul>`,
  practice:['Come-out vs point outcome drill','Odds payout calculator ("pay the 6 with $10 odds")','Live dice table with Pass, Come and odds','Bankroll swing simulator']},
 
-{id:'baccarat',stages:5,name:'Baccarat',cat:'cards',c1:'#eab308',c2:'#a855f7',status:'soon',edge:'1.06% (Banker)',skill:1,diff:'Easy',
+{id:'baccarat',stages:5,name:'Baccarat',cat:'cards',c1:'#eab308',c2:'#a855f7',status:'live',href:'games/baccarat/index.html',edge:'1.06% (Banker)',skill:1,diff:'Easy',
  tag:'The high-roller favorite. Simple bets, strict drawing rules.',
  icon:()=>`${fan(['9♦','K♠'],12)}<span class="chip" style="background:#ca8a04;left:14%;top:56%"></span><span class="chip" style="background:#7c3aed;left:76%;top:18%"></span>`,
  overview:`<div class="kpis"><div class="kpi"><small>House edge</small><b>Banker 1.06% · Player 1.24%</b></div><div class="kpi"><small>Decisions</small><b>Only which bet to make</b></div><div class="kpi"><small>Decks</small><b>Usually 8</b></div></div>
@@ -59,7 +59,7 @@ const GAMES=[
  <h4>Banker drawing table (when Player took a third card)</h4><table><tr><th>Banker total</th><th>Banker draws if Player's 3rd card is</th></tr><tr><td>0, 1, 2</td><td>Always draws</td></tr><tr><td>3</td><td>Anything except 8</td></tr><tr><td>4</td><td>2 – 7</td></tr><tr><td>5</td><td>4 – 7</td></tr><tr><td>6</td><td>6 – 7</td></tr><tr><td>7</td><td>Always stands</td></tr></table>`,
  pay:`<table><tr><th>Bet</th><th>Pays</th><th>House edge</th></tr><tr><td>Banker</td><td class="n">1 : 1 minus 5% commission</td><td class="n">1.06%</td></tr><tr><td>Player</td><td class="n">1 : 1</td><td class="n">1.24%</td></tr><tr><td>Tie</td><td class="n">8 : 1</td><td class="n">14.36%</td></tr></table><p>On a tie, Player and Banker bets push. Some "no-commission" tables pay Banker 1:2 when it wins with 6, which raises its edge to about 1.46%.</p>`,
  strat:`<ul><li><b>Bet Banker.</b> It wins slightly more often, even after commission.</li><li><b>Skip the Tie.</b> At 8:1 it's one of the worst bets in the casino.</li><li>Scorecards and "roads" track past results, but past hands don't predict future ones.</li><li>The game is fast, so set a time or loss limit.</li></ul>`,
- practice:['Hand total speed quiz (last-digit math)','Third-card rule trainer: "Does Banker draw?"','Full shoe simulator with commission tracking']},
+ practice:['5-stage Baccarat trainer — <b>live now</b>','Hand totals and naturals speed drills','Player and Banker third-card rule trainers','Live 8-deck shoe with commission, bead road and draw-call grading']},
 
 {id:'videopoker',stages:6,name:'Video Poker',cat:'machines',c1:'#ec4899',c2:'#6366f1',status:'live',href:'games/videopoker/index.html',edge:'0.46% (9/6 JoB)',skill:4,diff:'Medium',
  tag:'A machine where your choices matter. Perfect play returns 99.5%.',
