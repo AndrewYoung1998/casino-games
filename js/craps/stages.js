@@ -64,7 +64,7 @@ drill(el){const Q=[
  return{type:'number',html:`<div class="info">Field bet <b>$${amt}</b></div><div class="flash" style="min-height:100px">${diceHTML(...diceFor(t),'big tumble')}</div><p class="ask">Rolled ${t}. Net result?</p>`,check:v=>v===net,explain:m?`${t} is a field number${m===2?' paying 2:1':''} → <b>+$${net}</b>.`:`${t} isn't in the field → <b>−$${amt}</b>.`}}})}},
 
 {id:'table',level:'Expert',title:'Live Dice Table',blurb:'Shoot the dice: line bets, odds, place 6/8 and the field.',goal:'Pass: settle 15+ rolls that have action, at least 80% correctly.',
-lesson:`<h3>Run the game</h3><p>A live table with a $500 practice bankroll and the main bets:</p><ul><li><b>Pass / Don't Pass</b> ($10 per tap). Only on the come-out.</li><li><b>Odds</b> behind your Pass bet (1×, 2× or 3×). Only once a point is set.</li><li><b>Place 6 / Place 8</b> ($6 per tap). Working only while a point is on.</li><li><b>Field</b> ($5 per tap). One roll only.</li></ul>
-<p>Roll the dice. Whenever a roll settles any of your bets, enter your <b>net result for that roll</b> before the dealer pays.</p><p class="small">Keys: R or Enter to roll.</p>`,
-drill(el){crapsTable(el,this)}}
+lesson:`<h3>A full craps table</h3><p>A real layout in 3D with a $500 practice bankroll. Throw the dice across the felt and bet like you would in a casino:</p><ul><li><b>Pass Line / Don't Pass Bar</b> ($10 per tap). On the come-out only.</li><li><b>Odds</b> behind your Pass bet (1×, 2× or 3×) once a point is set.</li><li><b>Come / Don't Come</b> ($10). Once a point is set. The chip travels to the number rolled (red chips are Come, black are Don't Come).</li><li><b>Place 4, 5, 6, 8, 9, 10</b>: tap a point box. Working while a point is on.</li><li><b>Field</b> ($5). One roll; 2 and 12 pay double.</li></ul>
+<p>Whenever a roll settles any of your bets, enter your <b>net result for that roll</b> before the dealer pays.</p><p class="small">Keys: R or Enter to throw.</p>`,
+ drill(el){crapsTable(el,this)}}
 ];

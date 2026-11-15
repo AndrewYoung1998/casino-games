@@ -30,37 +30,57 @@
 .oddsrow.off{opacity:.45}
 .settle{max-width:420px;margin:8px auto 0;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted);text-align:left}
 
-/* ---------- 3D dice tray ---------- */
-.diceArea{flex-direction:column;gap:2px;min-height:auto}
-.tray{position:relative;width:min(320px,86vw);height:118px;margin:0 auto;border-radius:16px;perspective:700px;background:radial-gradient(120% 120% at 50% 0,#0d7a4e,#05462d);box-shadow:inset 0 0 0 5px #4a2c12,inset 0 0 0 7px #d4af37,inset 0 14px 26px rgba(0,0,0,.45),0 14px 30px rgba(0,0,0,.45);overflow:hidden}
-.tray-wall{position:absolute;left:7px;right:7px;top:7px;height:20px;border-radius:9px 9px 0 0;background:repeating-linear-gradient(45deg,#1b1b1f 0 6px,#2c2c33 6px 12px),#222;box-shadow:inset 0 -4px 6px rgba(0,0,0,.6);opacity:.95}
-.die3{position:absolute;top:46px;width:52px;height:52px;--h:26px;transform-style:preserve-3d}
-.die3.d0{left:calc(50% - 66px)}.die3.d1{left:calc(50% + 14px)}
+/* ---------- full 3D table ----------
+   .cstage (fits the panel) → .cscale (scales the 800×470 table) → .cplane (tilted, preserve-3d) */
+.felt.crp{padding:12px 10px 16px}
+.cstage{position:relative;width:100%;--s:1;margin:6px 0 0}
+.cscale{position:absolute;left:50%;top:0;width:800px;height:470px;transform:translateX(-50%) scale(var(--s));transform-origin:50% 0;perspective:1300px;perspective-origin:50% 0}
+.cplane{position:absolute;inset:0;transform-style:preserve-3d;transform:translateY(20px) rotateX(44deg);transform-origin:50% 0;border-radius:34px;background:radial-gradient(130% 100% at 50% 20%,#0f8a59,#05482e 75%);box-shadow:inset 0 0 0 14px #3d240e,inset 0 0 0 17px #d4af37,inset 0 20px 50px rgba(0,0,0,.4)}
+.cplane .rail{position:absolute;inset:-22px;border-radius:52px;background:linear-gradient(#5b3716,#2c180a);transform:translateZ(-14px);box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.cplane .wall{position:absolute;left:30px;right:30px;top:14px;height:46px;transform-origin:50% 0;transform:rotateX(-90deg);border-radius:8px 8px 0 0;background:repeating-linear-gradient(60deg,#18181c 0 7px,#2b2b33 7px 14px),#222;box-shadow:inset 0 -6px 10px rgba(0,0,0,.6);border-bottom:3px solid #d4af37}
+.layoutp{position:absolute;inset:26px 30px 24px;display:grid;grid-template-rows:96px 70px 92px 52px 66px;gap:8px;transform-style:preserve-3d}
+.cz{position:relative;font:inherit;color:#fff;cursor:pointer;background:transparent;border:2.5px solid rgba(255,255,255,.88);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:background .15s;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.cz:hover:not(:disabled){background:rgba(255,255,255,.08)}
+.cz:disabled{cursor:default}
+.cz b{font-size:20px;letter-spacing:.08em}.cz b.big{font-size:34px;letter-spacing:.14em}
+.cz small{font-size:13px;color:#fde68a;letter-spacing:.04em}
+.cz.has{border-color:#facc15}
+.prow{display:grid;grid-template-columns:1.1fr repeat(6,1fr);gap:8px}
+.pbox .pnum{font-size:36px;font-weight:900;letter-spacing:.04em}
+.pbox.isPoint{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 3px rgba(255,255,255,.4)}
+.dcbar b{font-size:15px}.dcbar{background:rgba(0,0,0,.15)}
+.comez{background:rgba(220,38,38,.12)}.comez b{color:#fecaca}
+.fieldz{background:rgba(0,0,0,.08)}.fieldz b{color:#fde68a;font-size:22px}
+.fnums{font-size:24px;font-weight:800;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+.fnums .dbl{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;border:2.5px solid #fde68a;color:#fde68a}
+.dontz{background:rgba(0,0,0,.28)}
+.passz{border-width:3px}
+.tchip{position:absolute;right:10px;top:50%;width:42px;height:42px;margin-top:-21px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:900;color:#111;background:radial-gradient(circle,#facc15 0 44%,#fff 45% 52%,#eab308 53%);box-shadow:0 3px 0 #a16207,0 6px 0 #854d0e,0 9px 12px rgba(0,0,0,.5);z-index:2;text-shadow:none}
+.tchip::before{content:"";position:absolute;inset:3px;border-radius:50%;border:2.5px dashed rgba(255,255,255,.9)}
+.pbox .tchip{right:auto;left:50%;margin-left:-21px;top:auto;bottom:-14px;margin-top:0}
+.pbox .tchip.c{left:4px;margin-left:0;top:4px;bottom:auto;width:34px;height:34px;font-size:12px;background:radial-gradient(circle,#f87171 0 44%,#fff 45% 52%,#dc2626 53%);box-shadow:0 2px 0 #7f1d1d,0 4px 0 #450a0a,0 6px 8px rgba(0,0,0,.5)}
+.pbox .tchip.dc{left:auto;right:4px;margin-left:0;top:4px;bottom:auto;width:34px;height:34px;font-size:12px;color:#fff;background:radial-gradient(circle,#3f3f46 0 44%,#fff 45% 52%,#18181b 53%);box-shadow:0 2px 0 #000,0 4px 0 #000,0 6px 8px rgba(0,0,0,.5)}
+.tchip.odds{right:auto;left:calc(50% + 120px);top:auto;bottom:16px;margin:0;background:radial-gradient(circle,#60a5fa 0 44%,#fff 45% 52%,#2563eb 53%);box-shadow:0 3px 0 #1e3a8a,0 6px 0 #172554,0 9px 12px rgba(0,0,0,.5)}
+.puck3{position:absolute;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:900;letter-spacing:.06em;z-index:3;text-shadow:none}
+.puck3.on{top:-10px;right:-10px;background:radial-gradient(circle at 40% 35%,#fff,#e4e4e7);color:#111;box-shadow:0 4px 0 #a1a1aa,0 7px 0 #71717a,0 10px 16px rgba(0,0,0,.55)}
+.puck3.off{left:8px;top:-34px;background:radial-gradient(circle at 40% 35%,#3f3f46,#18181b);color:#fff;border:2px solid #52525b;box-shadow:0 4px 0 #09090b,0 7px 0 #000,0 10px 16px rgba(0,0,0,.55)}
+/* dice on the felt */
+.die3{position:absolute;left:0;top:0;width:46px;height:46px;--h:23px;transform-style:preserve-3d;pointer-events:none;z-index:5}
 .cube{position:absolute;inset:0;transform-style:preserve-3d}
-.die3 .face{position:absolute;inset:0;border-radius:10px;background:linear-gradient(145deg,#ffffff,#e9e9ee);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),inset 0 -4px 6px rgba(0,0,0,.08);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:8px;backface-visibility:hidden}
-.die3 .face i{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ff5a5a,#b91c1c);place-self:center;visibility:hidden;box-shadow:inset 0 1px 1px rgba(0,0,0,.4)}
+.die3 .face{position:absolute;inset:0;border-radius:7px;background:linear-gradient(145deg,#ffffff,#e8e8ee);box-shadow:inset 0 0 0 1px rgba(0,0,0,.07),inset 0 -3px 5px rgba(0,0,0,.07);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:7px}
+.die3 .core{position:absolute;inset:1px;background:#f4f4f7}
+.die3 .core.cx{transform:rotateX(90deg)}.die3 .core.cy{transform:rotateY(90deg)}
+.die3 .face i{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ff5a5a,#b91c1c);place-self:center;visibility:hidden}
 .die3 .face i.v{visibility:visible}
-.die3 .view{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(var(--ry,-26deg))}
-.die3.d1 .view{--ry:22deg}
-.die3 .dshadow{position:absolute;left:-2px;right:-6px;bottom:-14px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent)}
-.die3.throw{animation:throwIn 1.25s cubic-bezier(.2,.7,.25,1)}
-.die3.d1.throw{animation-name:throwIn2}
-@keyframes throwIn{0%{transform:translate(-200px,-14px) scale(.8)}45%{transform:translate(18px,-26px) scale(1.04)}62%{transform:translate(8px,6px)}78%{transform:translate(2px,-6px)}100%{transform:none}}
-@keyframes throwIn2{0%{transform:translate(-270px,-6px) scale(.8)}48%{transform:translate(26px,-30px) scale(1.04)}66%{transform:translate(10px,4px)}82%{transform:translate(3px,-5px)}100%{transform:none}}
-.diceArea .sum{font-size:1.7rem;font-weight:900;margin-top:6px}
-/* ---------- 3D table: tilted felt, rail, printed bet spots, chip stacks ---------- */
-.ctable{margin-top:14px;padding:12px;border-radius:18px;background:radial-gradient(120% 90% at 50% 0,#0b7a4f,#05472d);box-shadow:inset 0 0 0 7px #4a2c12,inset 0 0 0 9px #d4af37,inset 0 12px 30px rgba(0,0,0,.45),0 20px 40px rgba(0,0,0,.5);transform:perspective(1100px) rotateX(16deg);transform-origin:50% 0;margin-bottom:22px}
-.ctable .cgrid{margin-top:0}
-.ctable .cspot{background:linear-gradient(rgba(255,255,255,.04),rgba(0,0,0,.12));border:2px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 0 rgba(0,0,0,.25),0 3px 6px rgba(0,0,0,.35);text-shadow:0 1px 2px rgba(0,0,0,.5);transition:transform .12s,filter .12s}
-.ctable .cspot b{letter-spacing:.06em;text-transform:uppercase;font-size:.88rem}
-.ctable .cspot small{color:#fde68a}
-.ctable .cspot:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.15)}
-.ctable .cspot.pass{background:linear-gradient(rgba(255,255,255,.06),rgba(0,0,0,.14))}
-.ctable .cspot.dont{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.4))}
-.ctable .cspot.field b{color:#fde68a}
-.ctable .cspot.has{border-color:#facc15}
-.chip3{position:absolute;top:-12px;right:-6px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.62rem;font-weight:800;color:#111;background:radial-gradient(circle,#facc15 0 44%,#fff 45% 52%,#eab308 53%);box-shadow:0 2px 0 #a16207,0 4px 0 #854d0e,0 6px 8px rgba(0,0,0,.55);z-index:2}
-.chip3::before{content:"";position:absolute;inset:2px;border-radius:50%;border:2px dashed rgba(255,255,255,.85)}
+.dshadow{position:absolute;left:0;top:0;width:55px;height:55px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.7),transparent);pointer-events:none;z-index:4}
+.rollinfo{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:4px;min-height:44px}
+.rollinfo .sum{font-size:2rem;font-weight:900;min-width:40px;text-align:center}
+.rollinfo .msg{margin:0;text-align:left}
+.oddsrow{flex-wrap:wrap}
 .puck{box-shadow:0 2px 0 #3f3f46,0 3px 0 #27272a,0 5px 8px rgba(0,0,0,.5)}
 .puck.on{box-shadow:0 2px 0 #a1a1aa,0 3px 0 #71717a,0 5px 10px rgba(0,0,0,.5),0 0 14px rgba(255,255,255,.4)}
-.felt.crp{padding-bottom:20px}
+.readout{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--muted)}
+.die.mini{width:28px;height:28px;border-radius:6px;padding:4px;gap:1px;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.die.mini i{width:5px;height:5px}
+.readout .sum{font-size:1.7rem;color:var(--ink);min-width:0}
+@media(max-width:520px){.rollinfo{flex-direction:column;gap:4px}.rollinfo .msg{text-align:center}}
