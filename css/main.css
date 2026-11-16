@@ -168,3 +168,17 @@ footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);color:v
 .pfoot{padding:14px 24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0c0e14}
 .pfoot small{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* slots tile */
+.slotico{position:relative;width:170px;padding:8px 10px 10px;border-radius:16px;background:linear-gradient(180deg,#3a0b10,#14030a);border:2px solid #f5c451;box-shadow:0 0 26px color-mix(in srgb,var(--c1) 55%,transparent),inset 0 0 14px rgba(0,0,0,.6)}
+.sm-top{text-align:center;font-weight:900;font-size:13px;letter-spacing:.3em;color:#fde68a;text-shadow:0 0 8px #f59e0b;margin-bottom:5px}
+.sm-win{display:flex;gap:4px;padding:4px;border-radius:10px;background:#05040a}
+.sw{flex:1;height:44px;overflow:hidden;border-radius:6px;background:linear-gradient(180deg,#cfc7b5,#fffdf6 35%,#fffdf6 65%,#cfc7b5)}
+.ss{display:flex;flex-direction:column;animation:sreel 3.6s cubic-bezier(.6,0,.4,1) infinite}
+.ss i{height:44px;display:grid;place-items:center;font-style:normal;font-size:24px;font-weight:900;color:#e11d48;font-family:Georgia,serif}
+@keyframes sreel{0%,18%{transform:translateY(0)}50%,68%{transform:translateY(-264px)}100%{transform:translateY(-264px)}}
+.tile:hover .ss{animation-duration:1.1s}
+.sm-lever{position:absolute;right:-12px;top:18px;width:6px;height:40px;border-radius:3px;background:linear-gradient(90deg,#9ca3af,#e5e7eb);transform-origin:bottom}
+.sm-lever::before{content:"";position:absolute;top:-10px;left:-5px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fecaca,#dc2626)}
+.tile:hover .sm-lever{animation:lever .6s ease-in-out}
+@keyframes lever{50%{transform:scaleY(-.6)}}

@@ -14,6 +14,7 @@ Open `index.html` to start. It's an animated home page with the full rules, payo
 | Video Poker | ✅ | ✅ [Video Poker](games/videopoker/index.html) (6 stages) |
 | Three Card Poker | ✅ | ✅ [Three Card Poker](games/threecard/index.html) (5 stages) |
 | Pai Gow Poker | ✅ | ✅ [Pai Gow Poker](games/paigow/index.html) (6 stages) |
+| Slots | ✅ | ✅ [Slots](games/slots/index.html) (10 stages, 4 machines) |
 
 ## Project structure
 
@@ -38,6 +39,7 @@ casino-games/
 │   ├── holdem/               math (equity, outs, ranges) · engine (betting, side pots) · bots · stages · table-sim · app
 │   ├── paigow/               rules (joker eval, House Way) · setter · stages · table-sim · app
 │   ├── roulette/             rules (wheels, bets, layout) · stages · table-sim · app
+│   ├── slots/                machines (reel math for all 4 machines) · symbols · stages · floor (playable cabinets) · app
 │   ├── threecard/            rules · stages · table-sim · app
 │   ├── videopoker/           strategy (paytable + 16-step hold ladder) · stages · machine · app
 │   └── blackjack/
@@ -56,6 +58,7 @@ casino-games/
     ├── holdem/index.html
     ├── paigow/index.html
     ├── roulette/index.html
+    ├── slots/index.html
     ├── threecard/index.html
     └── videopoker/index.html
 ```
